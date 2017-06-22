@@ -70,43 +70,43 @@ exports.handler = (event, context, callback) =>{
       });
     },
 
-      function runMySQL(destFilePath,next) {
-      console.log('MYSQL starting.');
-      console.log('Path: ' + destFilePath);
+    function runMySQL(destFilePath,next) {
+    console.log('MYSQL starting.');
+    console.log('Path: ' + destFilePath);
 
-      //Some Sample MYSQL queries.
-      connection.connect(function(err){
-        if (err)
-          console.log('Error connecting to database');
-        else
-          console.log('Connection established to database');
-      });
-      connection.query('CREATE TABLE table (firstname VARCHAR(45),lastname VARCHAR(45),number INT(45))', function(err, rows, fields) {
-        if (err)
-          console.log(err);
-        else
-          console.log('Table temp_table created.');
-      });
-      connection.query('LOAD DATA LOCAL INFILE "' + destFilePath + '" INTO TABLE temp_table FIELDS TERMINATED BY "|" IGNORE 1 LINES;', function(err, rows, fields) {
-        if (err)
-          console.log(err);
-        else
-          console.log('Data imported from file');
-      });
-      connection.query('SELECT * from supplier_city;', function(err, rows, fields) {
-        if (err)
-          console.log(err);
-        else
-          console.log(rows);
-      });
-      connection.end(function(err){
-        if (err)
-          console.log(err);
-        else
-          console.log ('Ended connection.');
-          next(null, 'Done');
-      });
-    },
+    //Some Sample MYSQL queries.
+    connection.connect(function(err){
+      if (err)
+        console.log('Error connecting to database');
+      else
+        console.log('Connection established to database');
+    });
+    connection.query('CREATE TABLE table (firstname VARCHAR(45),lastname VARCHAR(45),number INT(45))', function(err, rows, fields) {
+      if (err)
+        console.log(err);
+      else
+        console.log('Table temp_table created.');
+    });
+    connection.query('LOAD DATA LOCAL INFILE "' + destFilePath + '" INTO TABLE temp_table FIELDS TERMINATED BY "|" IGNORE 1 LINES;', function(err, rows, fields) {
+      if (err)
+        console.log(err);
+      else
+        console.log('Data imported from file');
+    });
+    connection.query('SELECT * from supplier_city;', function(err, rows, fields) {
+      if (err)
+        console.log(err);
+      else
+        console.log(rows);
+    });
+    connection.end(function(err){
+      if (err)
+        console.log(err);
+      else
+        console.log ('Ended connection.');
+        next(null, 'Done');
+    });
+  },
 
   ],
   function (err) {
